@@ -13,3 +13,8 @@ module.exports = {
         return json.config.channels.general
     }
 };
+
+var http = require("http");
+setInterval(function() {
+    http.get("https://evance-discord-bot.herokuapp.com/");
+}, 300000); // every 5 minutes (300000)
