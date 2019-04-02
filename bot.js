@@ -9,15 +9,10 @@ var general_channel_id = config.getGeneralChannel()
 
 client.on('ready', () => {
     // List servers the bot is connected to
-    console.log("Servers:")
-    client.guilds.forEach((guild) => {
-        console.log(" - " + guild.name)
-
-        // List all channels
-        guild.channels.forEach((channel) => {
-            console.log(` -- ${channel.name} (${channel.type}) - ${channel.id}`)
-        })
-    })
+    var http = require("http");
+    setInterval(function() {
+        http.get("https://evance-discord-bot.herokuapp.com/");
+    }, 300000); // every 5 minutes (300000)
 })
 client.on('message', (receivedMessage) => {
     // Prevent bot from responding to its own messages
