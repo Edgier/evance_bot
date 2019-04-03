@@ -1,8 +1,26 @@
 {
     "config": {
-        "bot_token": "NTYyNjk5NjU0MzkxOTIyNjkx.XKOlkg.N0EEEGZEogPYeexovKjS1ftaPBA",
-        "channels" :{
-            "general": "532275387288518672"
+        "dev": {
+            "bot_token": "NTYyNjk5NjU0MzkxOTIyNjkx.XKOlkg.N0EEEGZEogPYeexovKjS1ftaPBA",
+            "channels" :{
+                "general": "532275387288518672"
+            },
+            "roles" : {
+                "inside":   "563056830859706412",
+                "people":   "563019116554878976",
+                "traitor":  "563018786026946581"
+            }
+        },
+        "prod": {
+            "bot_token": "NTYyNjk5NjU0MzkxOTIyNjkx.XKOlkg.N0EEEGZEogPYeexovKjS1ftaPBA",
+            "channels" :{
+                "general": "532275387288518672"
+            },
+            "roles" : {
+                "inside":   "563056830859706412",
+                "people":   "563019116554878976",
+                "traitor":  "563018786026946581"
+            }
         }
     }
 }

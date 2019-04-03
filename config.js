@@ -5,11 +5,23 @@ var fs = require('fs')
 var raw = fs.readFileSync('./config.json')
 var json = JSON.parse(raw);
 
+var version = 'dev'
+
 module.exports = {
     getBotToken: function () {
-        return json.config.bot_token
+        return json.config[version].bot_token
     },
     getGeneralChannel: function() {
-        return json.config.channels.general
+        return json.config[version].channels.general
+    },
+    // Roles
+    getPeopleRole: function() {
+        return json.config[version].roles.people
+    },
+    getInsideRole: function() {
+        return json.config[version].roles.inside
+    },
+    getTraitorRole: function() {
+        return json.config[version].roles.traitor
     }
 };
