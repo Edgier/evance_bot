@@ -52,7 +52,7 @@ client.on('message', (receivedMessage) => {
             })
             */
         case '/myid':
-            receivedMessage.channel.send(receivedMessage.member.id)
+            receivedMessage.channel.send('Your ID is: ' + receivedMessage.member.id)
         break
         case '/assignall':
             if(receivedMessage.member.id == '195682347876745216') {
