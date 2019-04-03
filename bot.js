@@ -152,7 +152,7 @@ client.on('message', (receivedMessage) => {
         case '/help':
             if(receivedMessage.member.id == '195682347876745216') {
                 var helpString = ''
-                helpString += '/vouch (displayName) - Adds user to \'inside\' role.'
+                helpString += '/vouch (displayName) - Adds user to \'inside\' role. Only users with the \'inside\' role can use commands.'
                 helpString += '\n/people (displayName) - Adds user to people role and removes from traitor role.'
                 helpString += '\n/traitor (displayName) - Adds user to traitor role and removes from people role.'
                 helpString += '\n/help - Help menu.'
@@ -163,6 +163,16 @@ client.on('message', (receivedMessage) => {
             }
         break
         default:
+    }
+    // Table Flips
+    if(receivedMessage.content.includes('(╯°□°)╯︵ ┻━┻')
+    || receivedMessage.content.includes('(╯°□°）╯︵ ┻━┻')
+    || receivedMessage.content.includes('(ﾉಥ益ಥ）ﾉ﻿ ┻━┻')
+    || receivedMessage.content.includes('(ﾉಥ益ಥ）ﾉ ┻━┻')
+    || receivedMessage.content.includes('┻━┻ ︵ヽ(`Д´)ﾉ︵﻿ ┻━┻')
+    || receivedMessage.content.includes('┻━┻ ︵ヽ(`Д´)ﾉ︵ ┻━┻')
+    || receivedMessage.content.includes('(ノಠ益ಠ)ノ彡┻━┻')) {
+        receivedMessage.channel.send('Dude, please.    ┬─┬ノ( º _ ºノ)')
     }
     // Ping
     /*
