@@ -16,7 +16,7 @@ client.on('message', (receivedMessage) => {
         return
     } 
     if(receivedMessage.content == 'ping') {
-        receivedMessage.channel.send('pong pong')
+        receivedMessage.channel.send('pong')
     }
 })
 client.login(token)
