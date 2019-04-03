@@ -5,7 +5,8 @@ var fs = require('fs')
 var raw = fs.readFileSync('./config.json')
 var json = JSON.parse(raw);
 
-var version = json.config.build;
+//var version = json.config.build;
+var version = 'prod'
 
 module.exports = {
     getBotToken: function () {
