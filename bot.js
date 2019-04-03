@@ -172,7 +172,27 @@ client.on('message', (receivedMessage) => {
     || receivedMessage.content.includes('┻━┻ ︵ヽ(`Д´)ﾉ︵﻿ ┻━┻')
     || receivedMessage.content.includes('┻━┻ ︵ヽ(`Д´)ﾉ︵ ┻━┻')
     || receivedMessage.content.includes('(ノಠ益ಠ)ノ彡┻━┻')) {
-        receivedMessage.channel.send('Dude, please.    ┬─┬ノ( º _ ºノ)')
+        let response = Math.floor(Math.random() * 10)
+        switch(response) {
+            case 1:
+                receivedMessage.channel.send('Dude, please.    ┬─┬ノ( º _ ºノ)')
+            break
+            case 2:
+                receivedMessage.channel.send('Dude, please.    ┬─┬ノ( º _ ºノ)')
+            break
+            case 3:
+                receivedMessage.channel.send('Dude, please.    ┬─┬ノ( º _ ºノ)')
+            break
+            case 4:
+                receivedMessage.channel.send('Dammit, ' + receivedMessage.member.displayName + '.    ┬─┬ノ( º _ ºノ)')
+            break
+            case 5:
+                receivedMessage.channel.send('Dude, please.    ┬─┬ノ( º _ ºノ)')
+            break
+            default:
+                receivedMessage.channel.send('Comon man.    ┬─┬ノ( º _ ºノ)')
+            break
+        }
     }
     // Ping
     /*
