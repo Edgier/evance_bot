@@ -123,7 +123,7 @@ client.on('message', (receivedMessage) => {
                 members.forEach((member) => {
                     if(member.displayName == commands[1]) {
                         receivedMessage.channel.send(traitorRoleId)
-                        member.addRole(traitorRoleId).catch(error => {receivedMessage.channel.send(error)})
+                        member.addRole(traitorRoleId).catch(console.error)
                         member.removeRole(peopleRoleId).catch(console.error)
                     }
                 })
