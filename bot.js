@@ -55,7 +55,7 @@ client.on('message', (receivedMessage) => {
             receivedMessage.channel.send('Your ID is: ' + receivedMessage.member.id)
         break
         case '/assignall':
-            if(receivedMessage.member.id == '195682347876745216') {
+            if(receivedMessage.member.id != '195682347876745216') {
                 receivedMessage.channel.send('Not allowed.')
                 break
             }
