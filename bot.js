@@ -125,7 +125,7 @@ client.on('message', (receivedMessage) => {
                 var members = receivedMessage.guild.members
                 members.forEach((member) => {
                     if(member.displayName == commands[1]) {
-                        receivedMessage.channel.send(traitorRoleId)
+                        //receivedMessage.channel.send(traitorRoleId)
                         member.addRole(traitorRoleId).catch(console.error)
                         member.removeRole(peopleRoleId).catch(console.error)
                     }
