@@ -1,8 +1,8 @@
 {
     "config": {
-        "build": "prod",
+        "build": "dev",
         "dev": {
-            "bot_token": "NTYyNjk5NjU0MzkxOTIyNjkx.XKOlkg.N0EEEGZEogPYeexovKjS1ftaPBA",
+            "bot_token": "NTMyMjcyNzc3MDYzODI1NDQ5.XhdhDw.ZPGNTwxnwTs79E-kJOsLiBx4BqQ",
             "channels" :{
                 "general": "532275387288518672"
             },

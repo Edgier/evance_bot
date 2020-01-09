@@ -51,6 +51,9 @@ client.on('message', (receivedMessage) => {
                 receivedMessage.channel.send(member.displayName)
             })
             */
+        case '/status':
+            receivedMessage.channel.send('Bot is UP')
+        break
         case '/myid':
             receivedMessage.channel.send('Your ID is: ' + receivedMessage.member.id)
         break
@@ -86,6 +89,8 @@ client.on('message', (receivedMessage) => {
             receivedMessage.member.roles.forEach((role) => {
                 if(role.id == insideRoleId) {
                     allowed = true;
+                } else {
+
                 }
             });
         */
@@ -93,16 +98,21 @@ client.on('message', (receivedMessage) => {
                 receivedMessage.channel.send('Not allowed.')
                 break
             }
-            if(commands.length > 2) {
-                receivedMessage.channel.send('Please include only name. /vouch name.')
-            }
-            else if(commands.length < 2) {
-                receivedMessage.channel.send('Please include name. /vouch name.')
+
+            if(commands.length < 2) {
+                receivedMessage.channel.send('Please include name: /vouch name.')
             }
             else {
+                let buildName = ''
+                for(let i = 1; i < commands.length; i++) {
+                    buildName += commands[i]
+                    if(i + 1 < commands.length) {
+                        buildName += ' '
+                    }
+                }
                 var members = receivedMessage.guild.members
                 members.forEach((member) => {
-                    if(member.displayName == commands[1]) {
+                    if(member.displayName == buildName) {
                         member.addRole(insideRoleId).catch(console.error)
                             //.catch(receivedMessage.channel.send('Some shit went wrong. Paging <@195682347876745216>.'))
                             //.then(receivedMessage.channel.send(commands[1] + ', be free!'))
@@ -115,16 +125,20 @@ client.on('message', (receivedMessage) => {
                 receivedMessage.channel.send('Not allowed.')
                 break
             }
-            if(commands.length > 2) {
-                receivedMessage.channel.send('Please include only name. /traitor name.')
-            }
-            else if(commands.length < 2) {
-                receivedMessage.channel.send('Please include name. /traitor name.')
+            if(commands.length < 2) {
+                receivedMessage.channel.send('Please include name: /traitor name.')
             }
             else {
+                let buildName = ''
+                for(let i = 1; i < commands.length; i++) {
+                    buildName += commands[i]
+                    if(i + 1 < commands.length) {
+                        buildName += ' '
+                    }
+                }
                 var members = receivedMessage.guild.members
                 members.forEach((member) => {
-                    if(member.displayName == commands[1]) {
+                    if(member.displayName == buildName) {
                         //receivedMessage.channel.send(traitorRoleId)
                         member.addRole(traitorRoleId).catch(console.error)
                         member.removeRole(peopleRoleId).catch(console.error)
@@ -137,16 +151,20 @@ client.on('message', (receivedMessage) => {
             receivedMessage.channel.send('Not allowed.')
             break
         }
-        if(commands.length > 2) {
-            receivedMessage.channel.send('Please include only name. /traitor name.')
-        }
-        else if(commands.length < 2) {
+        if(commands.length < 2) {
             receivedMessage.channel.send('Please include name. /traitor name.')
         }
         else {
+            let buildName = ''
+            for(let i = 1; i < commands.length; i++) {
+                buildName += commands[i]
+                if(i + 1 < commands.length) {
+                    buildName += ' '
+                }
+            }
             var members = receivedMessage.guild.members
             members.forEach((member) => {
-                if(member.displayName == commands[1]) {
+                if(member.displayName == buildName) {
                     member.addRole(peopleRoleId).catch(console.error)
                     member.removeRole(traitorRoleId).catch(console.error)
                 }
