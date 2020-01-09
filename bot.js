@@ -88,6 +88,7 @@ client.on('message', (receivedMessage) => {
                     allowed = true;
                 }
             });
+            
         */
             if(!voucher(receivedMessage)) {
                 receivedMessage.channel.send('Not allowed.')
