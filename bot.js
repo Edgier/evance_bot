@@ -86,9 +86,10 @@ client.on('message', (receivedMessage) => {
             receivedMessage.member.roles.forEach((role) => {
                 if(role.id == insideRoleId) {
                     allowed = true;
+                } else {
+                    
                 }
             });
-            
         */
             if(!voucher(receivedMessage)) {
                 receivedMessage.channel.send('Not allowed.')
