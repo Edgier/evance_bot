@@ -67,9 +67,7 @@ client.on('message', (receivedMessage) => {
             })
         break
         */
-        case '/server':
-            console.log(client.guilds.id)
-        break
+
         /*
         case '/members':
             var members = receivedMessage.guild.members;
@@ -77,6 +75,9 @@ client.on('message', (receivedMessage) => {
                 receivedMessage.channel.send(member.displayName)
             })
             */
+        case '/server':
+            receivedMessage.channel.send(receivedMessage.guild.id)
+        break
         case '/status':
             receivedMessage.channel.send('Bot is UP')
         break
@@ -110,7 +111,7 @@ client.on('message', (receivedMessage) => {
             })
         break
         case '/vouch':
-            if(client.guilds.id !== '532275387288518672') return
+            if(receivedMessage.guild.id !== '373514118822494211') return
         /*
             var allowed = false;
             receivedMessage.member.roles.forEach((role) => {
@@ -147,7 +148,7 @@ client.on('message', (receivedMessage) => {
             }
         break
         case '/traitor':
-            if(client.guilds.id !== '532275387288518672') return
+            if(receivedMessage.guild.id !== '373514118822494211') return
             if(!voucher(receivedMessage)) {
                 receivedMessage.channel.send('Not allowed.')
                 break
@@ -173,7 +174,7 @@ client.on('message', (receivedMessage) => {
             }
         break
         case '/people':
-            if(client.guilds.id !== '532275387288518672') return
+            if(receivedMessage.guild.id !== '373514118822494211') return
             if(!voucher(receivedMessage)) {
                 receivedMessage.channel.send('Not allowed.')
                 break
