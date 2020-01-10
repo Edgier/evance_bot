@@ -66,8 +66,9 @@ client.on('message', (receivedMessage) => {
                 })
             })
         break
+        */
         case '/server':
-            console.log(client.guilds)
+            console.log(client.guilds.id)
         break
         /*
         case '/members':
