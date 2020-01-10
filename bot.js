@@ -26,8 +26,29 @@ function voucher(source) {
     return allowed;
 }
 
-client.on('ready', () => {
+function randomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
+client.on('ready', () => {
+    /*
+    const { Client } = require('pg');
+
+    const client = new Client({
+      connectionString: "postgres://chqjbszfqcvkae:f36b4e01cd0167ef1d99888c01d0e9e2a85bc3c6ff475cbadcaf976bf9248194@ec2-107-21-97-5.compute-1.amazonaws.com:5432/d84re6v3enghal",
+      ssl: true,
+    });
+    
+    client.connect();
+    
+    client.query('SELECT * from Users;', (err, res) => {
+      if (err) throw err;
+      for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+      }
+      client.end();
+    });
+    */
 })
 client.on('message', (receivedMessage) => {
     // Prevent bot from responding to its own messages
@@ -45,6 +66,10 @@ client.on('message', (receivedMessage) => {
                 })
             })
         break
+        case '/server':
+            console.log(client.guilds)
+        break
+        /*
         case '/members':
             var members = receivedMessage.guild.members;
             members.forEach((member) => {
@@ -63,10 +88,10 @@ client.on('message', (receivedMessage) => {
                 break
             }
             if(commands.length > 2) {
-                receivedMessage.channel.send('Please include only name. /vouch name.')
+                receivedMessage.channel.send('Please include only name. /assignall name.')
             }
             else if(commands.length < 2) {
-                receivedMessage.channel.send('Please include name. /vouch name.')
+                receivedMessage.channel.send('Please include name. /assignall name.')
             } else {
                 if(roles[commands[1]] != undefined){
                     var members = receivedMessage.guild.members
@@ -84,6 +109,7 @@ client.on('message', (receivedMessage) => {
             })
         break
         case '/vouch':
+            if(client.guilds.id !== '532275387288518672') return
         /*
             var allowed = false;
             receivedMessage.member.roles.forEach((role) => {
@@ -121,6 +147,7 @@ client.on('message', (receivedMessage) => {
             }
         break
         case '/traitor':
+            if(client.guilds.id !== '532275387288518672') return
             if(!voucher(receivedMessage)) {
                 receivedMessage.channel.send('Not allowed.')
                 break
@@ -147,29 +174,30 @@ client.on('message', (receivedMessage) => {
             }
         break
         case '/people':
-        if(!voucher(receivedMessage)) {
-            receivedMessage.channel.send('Not allowed.')
-            break
-        }
-        if(commands.length < 2) {
-            receivedMessage.channel.send('Please include name. /traitor name.')
-        }
-        else {
-            let buildName = ''
-            for(let i = 1; i < commands.length; i++) {
-                buildName += commands[i]
-                if(i + 1 < commands.length) {
-                    buildName += ' '
-                }
+            if(client.guilds.id !== '532275387288518672') return
+            if(!voucher(receivedMessage)) {
+                receivedMessage.channel.send('Not allowed.')
+                break
             }
-            var members = receivedMessage.guild.members
-            members.forEach((member) => {
-                if(member.displayName == buildName) {
-                    member.addRole(peopleRoleId).catch(console.error)
-                    member.removeRole(traitorRoleId).catch(console.error)
+            if(commands.length < 2) {
+                receivedMessage.channel.send('Please include name. /people name.')
+            }
+            else {
+                let buildName = ''
+                for(let i = 1; i < commands.length; i++) {
+                    buildName += commands[i]
+                    if(i + 1 < commands.length) {
+                        buildName += ' '
+                    }
                 }
-            })
-        }
+                var members = receivedMessage.guild.members
+                members.forEach((member) => {
+                    if(member.displayName == buildName) {
+                        member.addRole(peopleRoleId).catch(console.error)
+                        member.removeRole(traitorRoleId).catch(console.error)
+                    }
+                })
+            }
         break
         case '/help':
             if(receivedMessage.member.id == '195682347876745216') {
@@ -184,22 +212,10 @@ client.on('message', (receivedMessage) => {
                 receivedMessage.channel.send('', {files: ['https://i.imgflip.com/2xoads.jpg']})
             }
         break
+        case '/roll':
+            receivedMessage.channel.send(randomInteger(1,20))
+        break
         case '/test':
-            const Pool = require('pg').Pool
-            const pool = new Pool({
-                user: 'chqjbszfqcvkae',
-                host: 'ec2-107-21-97-5.compute-1.amazonaws.com',
-                database: 'd84re6v3enghal',
-                password: 'f36b4e01cd0167ef1d99888c01d0e9e2a85bc3c6ff475cbadcaf976bf9248194',
-                port: 5432
-            })
-            pool.query('SELECT * FROM users', (error, results) => {
-                if(error) {
-                    throw error
-                }
-                console.log(results.rows)
-            })
-
         break
         default:
         break
