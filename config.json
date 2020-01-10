@@ -1,6 +1,6 @@
 {
     "config": {
-        "build": "prod",
+        "build": "dev",
         "dev": {
             "bot_token": "NTMyMjcyNzc3MDYzODI1NDQ5.XhdhDw.ZPGNTwxnwTs79E-kJOsLiBx4BqQ",
             "channels" :{

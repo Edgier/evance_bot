@@ -27,7 +27,7 @@ function voucher(source) {
 }
 
 function randomInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return (parseInt(Math.floor(Math.random() * (max - min + 1))) + parseInt(min))
 }
 
 client.on('ready', () => {
@@ -56,7 +56,7 @@ client.on('message', (receivedMessage) => {
         return
     }
     // Commands
-    var commands = receivedMessage.content.split(' ');
+    var commands = receivedMessage.content.split(' ')
     switch(commands[0]) {
         /*
         case '/channels':
@@ -233,6 +233,7 @@ client.on('message', (receivedMessage) => {
     || receivedMessage.content.includes('(ﾉಥ益ಥ）ﾉ ┻━┻')
     || receivedMessage.content.includes('┻━┻ ︵ヽ(`Д´)ﾉ︵﻿ ┻━┻')
     || receivedMessage.content.includes('┻━┻ ︵ヽ(`Д´)ﾉ︵ ┻━┻')
+    || receivedMessage.content.includes('ヽ(ຈل͜ຈ)ﾉ︵ ┻━┻')
     || receivedMessage.content.includes('(ノಠ益ಠ)ノ彡┻━┻')) {
         let response = Math.floor(Math.random() * 10)
         switch(response) {
