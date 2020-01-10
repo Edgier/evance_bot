@@ -184,7 +184,25 @@ client.on('message', (receivedMessage) => {
                 receivedMessage.channel.send('', {files: ['https://i.imgflip.com/2xoads.jpg']})
             }
         break
+        case '/test':
+            const Pool = require('pg').Pool
+            const pool = new Pool({
+                user: 'chqjbszfqcvkae',
+                host: 'ec2-107-21-97-5.compute-1.amazonaws.com',
+                database: 'd84re6v3enghal',
+                password: 'f36b4e01cd0167ef1d99888c01d0e9e2a85bc3c6ff475cbadcaf976bf9248194',
+                port: 5432
+            })
+            pool.query('SELECT * FROM users', (error, results) => {
+                if(error) {
+                    throw error
+                }
+                console.log(results.rows)
+            })
+
+        break
         default:
+        break
     }
     // Table Flips
     if(receivedMessage.content.includes('(╯°□°)╯︵ ┻━┻')
