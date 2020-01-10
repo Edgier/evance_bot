@@ -127,8 +127,7 @@ client.on('message', (receivedMessage) => {
 
             if(commands.length < 2) {
                 receivedMessage.channel.send('Please include name: /vouch name.')
-            }
-            else {
+            } else {
                 let buildName = ''
                 for(let i = 1; i < commands.length; i++) {
                     buildName += commands[i]
@@ -154,8 +153,7 @@ client.on('message', (receivedMessage) => {
             }
             if(commands.length < 2) {
                 receivedMessage.channel.send('Please include name: /traitor name.')
-            }
-            else {
+            } else {
                 let buildName = ''
                 for(let i = 1; i < commands.length; i++) {
                     buildName += commands[i]
@@ -207,13 +205,19 @@ client.on('message', (receivedMessage) => {
                 helpString += '\n/traitor (displayName) - Adds user to traitor role and removes from people role.'
                 helpString += '\n/help - Help menu.'
                 receivedMessage.channel.send(helpString)
-            }
-            else {
+            } else {
                 receivedMessage.channel.send('', {files: ['https://i.imgflip.com/2xoads.jpg']})
             }
         break
         case '/roll':
-            receivedMessage.channel.send(randomInteger(1,20))
+            if(commands.length == 2) {
+                receivedMessage.channel.send(randomInteger(1,commands[1]))
+            } 
+            else if(commands.length == 3) {
+                receivedMessage.channel.send(randomInteger(commands[1],commands[2]))
+            } else {
+                receivedMessage.channel.send(randomInteger(1,20))
+            }
         break
         case '/test':
         break
