@@ -77,6 +77,10 @@ function randomInteger(min, max) {
     return (parseInt(Math.floor(Math.random() * (max - min + 1))) + parseInt(min))
 }
 
+function isBot(ID) {
+    return botID.includes(ID)
+}
+
 client.on('ready', () => {
 })
 client.on('message', (receivedMessage) => {
@@ -324,7 +328,7 @@ client.on('message', (receivedMessage) => {
 })
 
 client.on('messageReactionAdd', (reaction, user) => {
-    if(user.id === botID) return // Ignore bot reactions
+    if(isBot(user.id)) return // Ignore bot reactions
     if(c4GameState === 0) return
     if(c4Mode === 1) {
         if(typeof c4Teams[user.id] === 'undefined') { return }
@@ -367,7 +371,7 @@ client.on('messageReactionAdd', (reaction, user) => {
 
 
 client.on('messageReactionRemove', (reaction, user) => {
-    if(user.id === botID) return // Ignore bot reactions
+    if(isBot(user.id)) return // Ignore bot reactions
     if(c4GameState === 0) return
     if(c4Mode === 1) {
         if(typeof c4Teams[user.id] === 'undefined') { return }
