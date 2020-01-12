@@ -3,6 +3,7 @@
         "build": "prod",
         "dev": {
             "bot_token": "NTMyMjcyNzc3MDYzODI1NDQ5.XhdhDw.ZPGNTwxnwTs79E-kJOsLiBx4BqQ",
+            "bot_ID": "532272777063825449",
             "channels" :{
                 "general": "532275387288518672"
             },
@@ -17,6 +18,7 @@
         },
         "prod": {
             "bot_token": "NTYyNjk5NjU0MzkxOTIyNjkx.XKOlkg.N0EEEGZEogPYeexovKjS1ftaPBA",
+            "bot_ID": "562699654391922691",
             "channels" :{
                 "general": "532275387288518672"
             },

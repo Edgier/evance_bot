@@ -11,6 +11,9 @@ module.exports = {
     getBotToken: function () {
         return json.config[version].bot_token
     },
+    getBotID: function () {
+        return json.config[version].bot_ID
+    },
     getGeneralChannel: function() {
         return json.config[version].channels.general
     },

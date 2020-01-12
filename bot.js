@@ -51,6 +51,7 @@ function resetC4Game() {
 
 // Config items
 let token = config.getBotToken()
+let botID = config.getBotID()
 let generalChannelId = config.getGeneralChannel()
 let insideRoleId = config.getInsideRole()
 let peopleRoleId = config.getPeopleRole()
@@ -323,7 +324,7 @@ client.on('message', (receivedMessage) => {
 })
 
 client.on('messageReactionAdd', (reaction, user) => {
-    if(user.id === '532272777063825449') return // Ignore bot reactions
+    if(user.id === botID) return // Ignore bot reactions
     if(c4GameState === 0) return
     if(c4Mode === 1) {
         if(typeof c4Teams[user.id] === 'undefined') { return }
@@ -366,7 +367,7 @@ client.on('messageReactionAdd', (reaction, user) => {
 
 
 client.on('messageReactionRemove', (reaction, user) => {
-    if(user.id === '532272777063825449') return // Ignore bot reactions
+    if(user.id === botID) return // Ignore bot reactions
     if(c4GameState === 0) return
     if(c4Mode === 1) {
         if(typeof c4Teams[user.id] === 'undefined') { return }
