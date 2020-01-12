@@ -3,6 +3,52 @@ const client = new Discord.Client()
 
 var config = require('./config.js')
 
+// Connect 4
+let c4MessageObject = undefined
+let c4GameState = 0
+let c4Teams = {}
+let c4Mode = -1
+let inGame = 0
+
+let c4GM = require('./connect4.js')
+resetC4Game()
+
+let c4BoardState = []
+for(let i = 0; i < 6; i++) {
+    let inside = []
+    for(let j = 0; j < 7; j++) {
+        inside.push(0)
+    }
+    c4BoardState.push(inside)
+}
+
+function setC4Object(theObject) {
+    c4MessageObject = theObject
+}
+
+function updateBoardState(newState, ended) {
+    c4BoardState = newState
+    if(ended) {
+        resetC4Game()
+    } else if(c4GameState === 0) {
+        c4GameState = 1
+    } else if(c4GameState === 1) {
+        c4GameState = 2
+    } else if(c4GameState === 2) {
+        c4GameState = 1
+    }
+}
+
+function updateStartGame() {
+    c4GameState = 1
+}
+
+function resetC4Game() {
+    c4MessageObject = undefined
+    c4GameState = 0
+    inGame = 0
+}
+
 // Config items
 let token = config.getBotToken()
 let generalChannelId = config.getGeneralChannel()
@@ -31,24 +77,6 @@ function randomInteger(min, max) {
 }
 
 client.on('ready', () => {
-    /*
-    const { Client } = require('pg');
-
-    const client = new Client({
-      connectionString: "postgres://chqjbszfqcvkae:f36b4e01cd0167ef1d99888c01d0e9e2a85bc3c6ff475cbadcaf976bf9248194@ec2-107-21-97-5.compute-1.amazonaws.com:5432/d84re6v3enghal",
-      ssl: true,
-    });
-    
-    client.connect();
-    
-    client.query('SELECT * from Users;', (err, res) => {
-      if (err) throw err;
-      for (let row of res.rows) {
-        console.log(JSON.stringify(row));
-      }
-      client.end();
-    });
-    */
 })
 client.on('message', (receivedMessage) => {
     // Prevent bot from responding to its own messages
@@ -74,10 +102,10 @@ client.on('message', (receivedMessage) => {
             members.forEach((member) => {
                 receivedMessage.channel.send(member.displayName)
             })
-            */
         case '/server':
             receivedMessage.channel.send(receivedMessage.guild.id)
         break
+        */
         case '/status':
             receivedMessage.channel.send('Bot is UP')
         break
@@ -111,22 +139,12 @@ client.on('message', (receivedMessage) => {
             })
         break
         case '/vouch':
+            // PS Server only command
             if(receivedMessage.guild.id !== '373514118822494211') return
-        /*
-            var allowed = false;
-            receivedMessage.member.roles.forEach((role) => {
-                if(role.id == insideRoleId) {
-                    allowed = true;
-                } else {
-
-                }
-            });
-        */
             if(!voucher(receivedMessage)) {
                 receivedMessage.channel.send('Not allowed.')
                 break
             }
-
             if(commands.length < 2) {
                 receivedMessage.channel.send('Please include name: /vouch name.')
             } else {
@@ -174,6 +192,7 @@ client.on('message', (receivedMessage) => {
             }
         break
         case '/people':
+            // PS Server only command
             if(receivedMessage.guild.id !== '373514118822494211') return
             if(!voucher(receivedMessage)) {
                 receivedMessage.channel.send('Not allowed.')
@@ -200,7 +219,8 @@ client.on('message', (receivedMessage) => {
             }
         break
         case '/help':
-            if(receivedMessage.member.id == '195682347876745216') {
+            // PS Server only command
+            if(true || receivedMessage.member.id == '195682347876745216') {
                 var helpString = ''
                 helpString += '/vouch (displayName) - Adds user to \'inside\' role. Only users with the \'inside\' role can use commands.'
                 helpString += '\n/people (displayName) - Adds user to people role and removes from traitor role.'
@@ -222,6 +242,42 @@ client.on('message', (receivedMessage) => {
             }
         break
         case '/test':
+
+        break
+        case '/ccc':
+            // Probably could have shoved more code into connect4.js. I'll come back and consolidate someday.
+            if(commands.length > 1 && commands[1] === 'kill') {
+                resetC4Game()
+                return
+            }
+            if(inGame === 0) {
+                inGame = 1
+                let side = 1
+                c4Teams[receivedMessage.member.id] = side
+                if(commands.length > 1) {
+                    c4Mode = 1
+                    let opponent = commands[1]
+                    for(let i = 2; i < commands.length; i++) {
+                        opponent += ' ' + commands[2]
+                    }
+                    if(side === 1) {
+                        receivedMessage.guild.members.forEach(element => {
+                            if(element.nickname === opponent || element.user.username === opponent) {
+                                c4Teams[element.user.id] = 2
+                            }
+                        })
+                    } else {
+                        receivedMessage.guild.members.forEach(element => {
+                            if(element.nickname === opponent || element.user.username === opponent) {
+                                c4Teams[element.user.id] = 1
+                            }
+                        })
+                    }
+                } else {
+                    c4Mode = 0
+                }
+                c4GM.startConnect4Game(receivedMessage, setC4Object, updateStartGame)
+            }
         break
         default:
         break
@@ -264,4 +320,90 @@ client.on('message', (receivedMessage) => {
     }
     */
 })
+
+client.on('messageReactionAdd', (reaction, user) => {
+    if(user.id === '532272777063825449') return // Ignore bot reactions
+    if(c4GameState === 0) return
+    if(c4Mode === 1) {
+        if(typeof c4Teams[user.id] === 'undefined') { return }
+        else if(c4Teams[user.id] !== c4GameState) { return } 
+    } else if(c4Mode === 0) {
+        if(typeof c4Teams[user.id] === 'undefined') { 
+            c4Teams[user.id] = c4GameState 
+
+        } else if(c4Teams[user.id] !== c4GameState) {
+            return
+        }
+    } else {
+        return
+    }
+    if(!['🕐','🕑','🕒','🕓','🕔','🕕','🕖'].includes(reaction.emoji.name)) return
+    switch(reaction.emoji.name) {
+        case '🕐':
+            c4GM.move(c4MessageObject, c4BoardState, 0, c4GameState, updateBoardState)
+        break
+        case '🕑':
+            c4GM.move(c4MessageObject, c4BoardState, 1, c4GameState, updateBoardState)
+        break
+        case '🕒':
+            c4GM.move(c4MessageObject, c4BoardState, 2, c4GameState, updateBoardState)
+        break
+        case '🕓':
+            c4GM.move(c4MessageObject, c4BoardState, 3, c4GameState, updateBoardState)
+        break
+        case '🕔':
+            c4GM.move(c4MessageObject, c4BoardState, 4, c4GameState, updateBoardState)
+        break
+        case '🕕':
+            c4GM.move(c4MessageObject, c4BoardState, 5, c4GameState, updateBoardState)
+        break
+        case '🕖':
+            c4GM.move(c4MessageObject, c4BoardState, 6, c4GameState, updateBoardState)
+        break
+    }
+})
+
+
+client.on('messageReactionRemove', (reaction, user) => {
+    if(user.id === '532272777063825449') return // Ignore bot reactions
+    if(c4GameState === 0) return
+    if(c4Mode === 1) {
+        if(typeof c4Teams[user.id] === 'undefined') { return }
+        else if(c4Teams[user.id] !== c4GameState) { return } 
+    } else if(c4Mode === 0) {
+        if(typeof c4Teams[user.id] === 'undefined') { 
+            c4Teams[user.id] = c4GameState 
+        } else if(c4Teams[user.id] !== c4GameState) {
+            return
+        }
+    } else {
+        return
+    }    if(!['🕐','🕑','🕒','🕓','🕔','🕕','🕖'].includes(reaction.emoji.name)) return
+    switch(reaction.emoji.name) {
+        case '🕐':
+            c4GM.move(c4MessageObject, c4BoardState, 0, c4GameState, updateBoardState)
+        break
+        case '🕑':
+            c4GM.move(c4MessageObject, c4BoardState, 1, c4GameState, updateBoardState)
+        break
+        case '🕒':
+            c4GM.move(c4MessageObject, c4BoardState, 2, c4GameState, updateBoardState)
+        break
+        case '🕓':
+            c4GM.move(c4MessageObject, c4BoardState, 3, c4GameState, updateBoardState)
+        break
+        case '🕔':
+            c4GM.move(c4MessageObject, c4BoardState, 4, c4GameState, updateBoardState)
+        break
+        case '🕕':
+            c4GM.move(c4MessageObject, c4BoardState, 5, c4GameState, updateBoardState)
+        break
+        case '🕖':
+            c4GM.move(c4MessageObject, c4BoardState, 6, c4GameState, updateBoardState)
+        break
+    }
+})
+
+
 client.login(token)
+
