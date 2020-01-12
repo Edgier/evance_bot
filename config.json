@@ -18,7 +18,7 @@
         },
         "prod": {
             "bot_token": "NTYyNjk5NjU0MzkxOTIyNjkx.XKOlkg.N0EEEGZEogPYeexovKjS1ftaPBA",
-            "bot_ID": "562699654391922691",
+            "bot_ID": ["562699654391922691","562699654391922691"],
             "channels" :{
                 "general": "532275387288518672"
             },
