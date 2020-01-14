@@ -1,6 +1,7 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 
+var roll = require('./roll.js')
 var config = require('./config.js')
 
 // Connect 4
@@ -253,6 +254,8 @@ client.on('message', (receivedMessage) => {
             }
         break
         case '/roll':
+            receivedMessage.channel.send(roll.run(commands))
+            /*
             if(commands.length == 2) {
                 if(isAllNumbers(commands[1])) {
                     receivedMessage.channel.send('[ ' + randomInteger(1, commands[1]) + ' ]')
@@ -283,6 +286,7 @@ client.on('message', (receivedMessage) => {
             } else {
                 receivedMessage.channel.send('[ ' + randomInteger(1,20) + ' ]')
             }
+            */
         break
         case '/test':
 
