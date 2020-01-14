@@ -256,8 +256,8 @@ client.on('message', (receivedMessage) => {
         case '/test':
 
         break
-        case '/c4':
-        case '/connect4':
+        case '/cccccc4':
+        case '/ccccccconnect4':
             // Probably could have shoved more code into connect4.js. I'll come back and consolidate someday.
             if(commands.length > 1 && commands[1] === 'kill') {
                 resetC4Game()
