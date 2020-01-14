@@ -88,6 +88,15 @@ function isBot(ID) {
     return botID.includes(ID)
 }
 
+// Helper
+
+function isAllNumbers(input) {
+    var regNumbers = /[0-9]/g;
+    var regResult = input.match(regNumbers)
+    if(input.length === regResult.length) return true
+    return false
+}
+
 client.on('ready', () => {
 })
 client.on('message', (receivedMessage) => {
@@ -245,12 +254,34 @@ client.on('message', (receivedMessage) => {
         break
         case '/roll':
             if(commands.length == 2) {
-                receivedMessage.channel.send(randomInteger(1,commands[1]))
+                if(isAllNumbers(commands[1])) {
+                    receivedMessage.channel.send('[ ' + randomInteger(1, commands[1]) + ' ]')
+                } else if(commands[1].includes('d')) {
+                    var rollCommands = commands[1].split('d')
+                    if(rollCommands.length !== 2) {
+                        receivedMessage.channel.send('Neigh')
+                        return
+                    }
+                    if(isAllNumbers(rollCommands[0]) &&
+                       parseInt(rollCommands[0]) > 0 &&
+                       isAllNumbers(rollCommands[1]) &&
+                       parseInt(rollCommands[1]) > 0) {
+                        let rollResults = ''
+                        for(let i = 0; i < rollCommands[0]; i++) {
+                            rollResults += '[ ' + randomInteger(1, parseInt(rollCommands[1])) + ' ]'
+                        }
+                        receivedMessage.channel.send(rollResults)
+                    } else {
+                        receivedMessage.channel.send('Neigh')
+                    }
+                } else {
+                    receivedMessage.channel.send('Neigh')
+                }
             } 
             else if(commands.length == 3) {
-                receivedMessage.channel.send(randomInteger(commands[1],commands[2]))
+                receivedMessage.channel.send(randomInteger('[ ' + commands[1],commands[2]) + ' ]')
             } else {
-                receivedMessage.channel.send(randomInteger(1,20))
+                receivedMessage.channel.send('[ ' + randomInteger(1,20) + ' ]')
             }
         break
         case '/test':
