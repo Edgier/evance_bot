@@ -44,6 +44,13 @@ function updateStartGame() {
 
 function resetC4Game() {
     c4BoardState = []
+    for(let i = 0; i < 6; i++) {
+        let inside = []
+        for(let j = 0; j < 7; j++) {
+            inside.push(0)
+        }
+        c4BoardState.push(inside)
+    }
     c4MessageObject = undefined
     c4GameState = 0
     inGame = 0
