@@ -256,8 +256,9 @@ client.on('message', (receivedMessage) => {
         case '/test':
 
         break
-        case '/cccccc4':
-        case '/ccccccconnect4':
+        case '/c4':
+        case '/connect4':
+            if(receivedMessage.guild.id === '373514118822494211') return
             // Probably could have shoved more code into connect4.js. I'll come back and consolidate someday.
             if(commands.length > 1 && commands[1] === 'kill') {
                 resetC4Game()
