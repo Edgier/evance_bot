@@ -9,10 +9,6 @@ let c4GameState = 0
 let c4Teams = {}
 let c4Mode = -1
 let inGame = 0
-
-let c4GM = require('./connect4.js')
-resetC4Game()
-
 let c4BoardState = []
 for(let i = 0; i < 6; i++) {
     let inside = []
@@ -21,6 +17,9 @@ for(let i = 0; i < 6; i++) {
     }
     c4BoardState.push(inside)
 }
+
+let c4GM = require('./connect4.js')
+resetC4Game()
 
 function setC4Object(theObject) {
     c4MessageObject = theObject
@@ -44,6 +43,7 @@ function updateStartGame() {
 }
 
 function resetC4Game() {
+    c4BoardState = []
     c4MessageObject = undefined
     c4GameState = 0
     inGame = 0
