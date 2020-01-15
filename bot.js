@@ -4,6 +4,9 @@ const client = new Discord.Client()
 var roll = require('./roll.js')
 var config = require('./config.js')
 
+// Other global
+let butter = 0
+
 // Connect 4
 let c4MessageObject = undefined
 let c4GameState = 0
@@ -105,8 +108,20 @@ client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) {
         return
     }
+    // Butter easter egg
+
+    if(butter === 1) {
+        if(receivedMessage.content.toLowerCase() === 'you pass butter' ||
+          (receivedMessage.content.toLowerCase().includes('roll') && !receivedMessage.content.toLowerCase().includes('/roll'))
+        ) {
+            receivedMessage.channel.send('Oh my god...')
+        }
+        butter = 2
+        return
+    }
     // Commands
     var commands = receivedMessage.content.split(' ')
+
     switch(commands[0]) {
         /*
         case '/channels':
@@ -128,12 +143,14 @@ client.on('message', (receivedMessage) => {
             receivedMessage.channel.send(receivedMessage.guild.id)
         break
         */
+        // Server
         case '/status':
             receivedMessage.channel.send('Bot is UP')
         break
         case '/myid':
             receivedMessage.channel.send('Your ID is: ' + receivedMessage.member.id)
         break
+        // PS Roles
         case '/assignall':
             if(receivedMessage.member.id != '195682347876745216') {
                 receivedMessage.channel.send('Not allowed.')
@@ -253,7 +270,21 @@ client.on('message', (receivedMessage) => {
                 receivedMessage.channel.send('', {files: ['https://i.imgflip.com/2xoads.jpg']})
             }
         break
+        // General Server
+        case '/reset':
+            if(commands[1] === 'butter') {
+                butter = 0
+            } 
+        break
+        // Other
         case '/roll':
+            // Easter Egg Butter
+            if(butter === 0 && randomInteger(1, 20) === 1) {
+            //if(butter === 0 && true) {
+                receivedMessage.channel.send('What is my purpose?')
+                butter = 1
+                return
+            }
             receivedMessage.channel.send(roll.run(commands))
             /*
             if(commands.length == 2) {
