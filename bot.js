@@ -1,8 +1,9 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 
-var roll = require('./roll.js')
-var config = require('./config.js')
+const dotenv = require('dotenv')
+const roll = require('./roll.js')
+const config = require('./config.js')
 
 // Other global
 let butter = 0
@@ -320,7 +321,8 @@ client.on('message', (receivedMessage) => {
             */
         break
         case '/test':
-
+            receivedMessage.channel.send(dotenv.config().parsed.db_uri)
+            //console.log(dotenv.config())
         break
         case '/c4':
         case '/connect4':
