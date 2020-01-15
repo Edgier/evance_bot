@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 
-const dotenv = require('dotenv')
+//const dotenv = require('dotenv')
 const roll = require('./roll.js')
 const config = require('./config.js')
 
@@ -144,9 +144,12 @@ client.on('message', (receivedMessage) => {
             receivedMessage.channel.send(receivedMessage.guild.id)
         break
         */
-        // Server
+        // Bot and Server
         case '/status':
             receivedMessage.channel.send('Bot is UP')
+        break
+        case '/version':
+
         break
         case '/myid':
             receivedMessage.channel.send('Your ID is: ' + receivedMessage.member.id)
@@ -321,7 +324,7 @@ client.on('message', (receivedMessage) => {
             */
         break
         case '/test':
-            receivedMessage.channel.send(dotenv.config().parsed.db_uri)
+            //receivedMessage.channel.send(dotenv.config().parsed.db_uri)
             //console.log(dotenv.config())
         break
         case '/c4':
